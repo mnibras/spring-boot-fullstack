@@ -31,6 +31,7 @@ public class Main {
             String email = String.format("%s.%s@amigoscode.com", firstName, lastName);
             Customer customer = new Customer(name, email, random.nextInt(16, 99));
             customerRepository.save(customer);
+
         };
     }
 
