@@ -3,6 +3,7 @@ package com.amigoscode.customer.unit;
 import com.amigoscode.AbstractTestSetup;
 import com.amigoscode.customer.Customer;
 import com.amigoscode.customer.CustomerRepository;
+import com.amigoscode.customer.Gender;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ class CustomerRepositoryTest extends AbstractTestSetup {
     void existsCustomerByEmail() {
         // Given
         String email = FAKER.internet().safeEmailAddress() + "-" + UUID.randomUUID();
-        Customer customer = new Customer(FAKER.name().fullName(), email, 20);
+        Customer customer = new Customer(FAKER.name().fullName(), email, 20,  Gender.MALE);
 
         underTest.save(customer);
 
@@ -56,7 +57,7 @@ class CustomerRepositoryTest extends AbstractTestSetup {
     void existsCustomerById() {
         // Given
         String email = FAKER.internet().safeEmailAddress() + "-" + UUID.randomUUID();
-        Customer customer = new Customer(FAKER.name().fullName(), email, 20);
+        Customer customer = new Customer(FAKER.name().fullName(), email, 20, Gender.MALE);
 
         underTest.save(customer);
 

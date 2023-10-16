@@ -2,6 +2,7 @@ package com.amigoscode;
 
 import com.amigoscode.customer.Customer;
 import com.amigoscode.customer.CustomerRepository;
+import com.amigoscode.customer.Gender;
 import com.github.javafaker.Faker;
 import com.github.javafaker.Name;
 import org.springframework.boot.CommandLineRunner;
@@ -29,9 +30,10 @@ public class Main {
             String lastName = nameObj.lastName();
             String name = String.format("%s %s", firstName, lastName);
             String email = String.format("%s.%s@amigoscode.com", firstName, lastName);
-            Customer customer = new Customer(name, email, random.nextInt(16, 99));
+            int age = random.nextInt(16, 99);
+            Gender gender = age % 2 == 0 ? Gender.MALE : Gender.FEMALE;
+            Customer customer = new Customer(name, email, age, gender);
             customerRepository.save(customer);
-
         };
     }
 

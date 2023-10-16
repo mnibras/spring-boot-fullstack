@@ -4,6 +4,7 @@ import com.amigoscode.AbstractTestSetup;
 import com.amigoscode.customer.Customer;
 import com.amigoscode.customer.CustomerJDBCDataAccessService;
 import com.amigoscode.customer.CustomerRowMapper;
+import com.amigoscode.customer.Gender;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -26,7 +27,7 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestSetup {
     @Test
     void selectAllCustomers() {
         // GIVEN
-        Customer customer = new Customer(FAKER.name().fullName(), FAKER.internet().safeEmailAddress()  + "-" + UUID.randomUUID(), 20);
+        Customer customer = new Customer(FAKER.name().fullName(), FAKER.internet().safeEmailAddress()  + "-" + UUID.randomUUID(), 20, Gender.MALE);
         underTest.insertCustomer(customer);
 
         // WHEN
@@ -40,7 +41,7 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestSetup {
     void selectCustomerById() {
         // GIVEN
         String email = FAKER.internet().safeEmailAddress() + "-" + UUID.randomUUID();
-        Customer customer = new Customer(FAKER.name().fullName(), email, 20);
+        Customer customer = new Customer(FAKER.name().fullName(), email, 20, Gender.MALE);
         underTest.insertCustomer(customer);
 
         int customerId = underTest.selectAllCustomers()
@@ -78,7 +79,7 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestSetup {
     void insertCustomer() {
         // GIVEN
         String email = FAKER.internet().safeEmailAddress() + "-" + UUID.randomUUID();
-        Customer customer = new Customer(FAKER.name().fullName(), email, 20);
+        Customer customer = new Customer(FAKER.name().fullName(), email, 20, Gender.MALE);
 
         // WHEN
         underTest.insertCustomer(customer);
@@ -98,7 +99,7 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestSetup {
     void existCustomerWithEmail() {
         // GIVEN
         String email = FAKER.internet().safeEmailAddress() + "-" + UUID.randomUUID();
-        Customer customer = new Customer(FAKER.name().fullName(), email, 20);
+        Customer customer = new Customer(FAKER.name().fullName(), email, 20, Gender.MALE);
         underTest.insertCustomer(customer);
 
         // WHEN
@@ -124,7 +125,7 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestSetup {
     void existCustomerWithId() {
         // GIVEN
         String email = FAKER.internet().safeEmailAddress() + "-" + UUID.randomUUID();
-        Customer customer = new Customer(FAKER.name().fullName(), email, 20);
+        Customer customer = new Customer(FAKER.name().fullName(), email, 20, Gender.MALE);
         underTest.insertCustomer(customer);
 
         int customerId = underTest.selectAllCustomers()
@@ -157,7 +158,7 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestSetup {
     void deleteCustomerById() {
         // GIVEN
         String email = FAKER.internet().safeEmailAddress() + "-" + UUID.randomUUID();
-        Customer customer = new Customer(FAKER.name().fullName(), email, 20);
+        Customer customer = new Customer(FAKER.name().fullName(), email, 20, Gender.MALE);
         underTest.insertCustomer(customer);
 
         int customerId = underTest.selectAllCustomers()
@@ -179,7 +180,7 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestSetup {
     void updateCustomerName() {
         // Given
         String email = FAKER.internet().safeEmailAddress() + "-" + UUID.randomUUID();
-        Customer customer = new Customer(FAKER.name().fullName(), email,20);
+        Customer customer = new Customer(FAKER.name().fullName(), email,20, Gender.MALE);
 
         underTest.insertCustomer(customer);
 
@@ -214,7 +215,7 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestSetup {
     void updateCustomerEmail() {
         // Given
         String email = FAKER.internet().safeEmailAddress() + "-" + UUID.randomUUID();
-        Customer customer = new Customer(FAKER.name().fullName(), email,20);
+        Customer customer = new Customer(FAKER.name().fullName(), email,20, Gender.MALE);
 
         underTest.insertCustomer(customer);
 
@@ -249,7 +250,7 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestSetup {
     void updateCustomerAge() {
         // Given
         String email = FAKER.internet().safeEmailAddress() + "-" + UUID.randomUUID();
-        Customer customer = new Customer(FAKER.name().fullName(), email, 20);
+        Customer customer = new Customer(FAKER.name().fullName(), email, 20, Gender.MALE);
 
         underTest.insertCustomer(customer);
 
@@ -284,7 +285,7 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestSetup {
     void willUpdateAllPropertiesCustomer() {
         // Given
         String email = FAKER.internet().safeEmailAddress() + "-" + UUID.randomUUID();
-        Customer customer = new Customer(FAKER.name().fullName(), email,20);
+        Customer customer = new Customer(FAKER.name().fullName(), email,20, Gender.MALE);
 
         underTest.insertCustomer(customer);
 
@@ -320,7 +321,7 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestSetup {
     void willNotUpdateWhenNothingToUpdate() {
         // Given
         String email = FAKER.internet().safeEmailAddress() + "-" + UUID.randomUUID();
-        Customer customer = new Customer(FAKER.name().fullName(), email, 20);
+        Customer customer = new Customer(FAKER.name().fullName(), email, 20, Gender.MALE);
 
         underTest.insertCustomer(customer);
 

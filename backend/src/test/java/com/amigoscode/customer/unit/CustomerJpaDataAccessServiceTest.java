@@ -3,6 +3,7 @@ package com.amigoscode.customer.unit;
 import com.amigoscode.customer.Customer;
 import com.amigoscode.customer.CustomerJpaDataAccessService;
 import com.amigoscode.customer.CustomerRepository;
+import com.amigoscode.customer.Gender;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -56,7 +57,7 @@ class CustomerJpaDataAccessServiceTest {
     void insertCustomer() {
         // Given
         Customer customer = new Customer(
-                1, "Ali", "ali@gmail.com", 2);
+                1, "Ali", "ali@gmail.com", 2, Gender.MALE);
 
         // When
         underTest.insertCustomer(customer);
@@ -105,7 +106,7 @@ class CustomerJpaDataAccessServiceTest {
     void updateCustomer() {
         // Given
         Customer customer = new Customer(
-                1, "Ali", "ali@gmail.com", 2);
+                1, "Ali", "ali@gmail.com", 2, Gender.MALE);
 
         // When
         underTest.updateCustomer(customer);
