@@ -23,6 +23,7 @@ services:
             dockerfile: Dockerfile
         environment:
             SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/customer
+            SPRING_DATASOURCE_USERNAME: nibras
         ports:
             - "8181:8080"
         networks:
