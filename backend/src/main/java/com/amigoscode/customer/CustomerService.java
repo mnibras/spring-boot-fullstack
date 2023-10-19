@@ -3,6 +3,8 @@ package com.amigoscode.customer;
 import com.amigoscode.exceptions.DuplicateResourceException;
 import com.amigoscode.exceptions.RequestValidationException;
 import com.amigoscode.exceptions.ResourceNotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +12,8 @@ import java.util.List;
 
 @Service
 public class CustomerService {
+
+    private static final Logger logger = LoggerFactory.getLogger(CustomerService.class);
 
     private final CustomerDao customerDao;
 
@@ -32,6 +36,7 @@ public class CustomerService {
         }
         Customer customer = new Customer(customerRegistrationRequest.name(), customerRegistrationRequest.email(), customerRegistrationRequest.age(), customerRegistrationRequest.gender());
         customerDao.insertCustomer(customer);
+        logger.info("Customer {} created successfully", customerRegistrationRequest.name());
     }
 
     public void deleteCustomerById(Integer customerId) {

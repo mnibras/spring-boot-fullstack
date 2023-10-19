@@ -4,8 +4,8 @@ services:
         image: postgres
         environment:
             POSTGRES_DB: customer
-            POSTGRES_USER: amigoscode
-            POSTGRES_PASSWORD: password
+            POSTGRES_USER: nibras
+            POSTGRES_PASSWORD: 1234
             PGDATA: /data/postgres
         volumes:
             - db:/data/postgres
@@ -17,15 +17,32 @@ services:
 
     amigoscode-api:
         container_name: amigoscode-api
-        image: mnibras/amigoscode-api:1.0
+        image: mnibras/amigoscode-api
+        build:
+            context: backend
+            dockerfile: Dockerfile
         environment:
             SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/customer
         ports:
-            - "8080:8080"
+            - "8181:8080"
         networks:
             - db
         depends_on:
             - db
+        restart: unless-stopped
+
+    amigoscode-react:
+        container_name: amigoscode-react
+        image: mnibras/amigoscode-react
+        build:
+            context: frontend/react
+            dockerfile: Dockerfile
+            args:
+                api_base_url: http://localhost:8181
+        ports:
+            - "3001:5173"
+        depends_on:
+            - amigoscode-api
         restart: unless-stopped
 
 networks:

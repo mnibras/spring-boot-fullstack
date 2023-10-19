@@ -1,6 +1,31 @@
-import {Avatar, Box, Center, Flex, Heading, Image, Stack, Tag, Text, useColorModeValue,} from '@chakra-ui/react';
+import {
+    AlertDialog,
+    AlertDialogBody,
+    AlertDialogContent,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogOverlay,
+    Avatar,
+    Box,
+    Button,
+    Center,
+    Flex,
+    Heading,
+    Image,
+    Stack,
+    Tag,
+    Text,
+    useColorModeValue,
+    useDisclosure,
+} from '@chakra-ui/react';
+import {useRef} from "react";
+import CustomerService from "../services/CustomerService.js";
+import {errorNotification, successNotification} from "../services/Notification.js";
 
-export default function CardWithImage({id, name, email, age, gender}) {
+export default function CardWithImage({id, name, email, age, gender, fetchCustomers}) {
+
+    const {isOpen, onOpen, onClose} = useDisclosure()
+    const cancelRef = useRef()
 
     const randomUserGender = gender === "MALE" ? "male" : "female";
 
@@ -44,6 +69,59 @@ export default function CardWithImage({id, name, email, age, gender}) {
                         <Text color={'gray.500'}>Age {age} | {gender}</Text>
                     </Stack>
                 </Box>
+                <Stack m={8}>
+                    <Button
+                        bg={'red.400'}
+                        color={'white'}
+                        rounded={'full'}
+                        _hover={{
+                            transform: 'translateY(-2px)',
+                            boxShadow: 'lg'
+                        }}
+                        _focus={{
+                            bg: 'green.500'
+                        }}
+                        onClick={onOpen}>
+                        Delete
+                    </Button>
+                    <AlertDialog
+                        isOpen={isOpen}
+                        leastDestructiveRef={cancelRef}
+                        onClose={onClose}>
+                        <AlertDialogOverlay>
+                            <AlertDialogContent>
+                                <AlertDialogHeader fontSize='lg' fontWeight='bold'>
+                                    Delete Customer
+                                </AlertDialogHeader>
+
+                                <AlertDialogBody>
+                                    Are you sure you want to delete {name}? You can't undo this action afterwards.
+                                </AlertDialogBody>
+
+                                <AlertDialogFooter>
+                                    <Button ref={cancelRef} onClick={onClose}>
+                                        Cancel
+                                    </Button>
+                                    <Button colorScheme='red' onClick={() => {
+                                        CustomerService.deleteCustomer(id)
+                                            .then(res => {
+                                                successNotification("Customer Deleted", `${name} was successfully delete`);
+                                                fetchCustomers();
+                                            })
+                                            .catch(err => {
+                                                errorNotification(err.code, err.response.data.message);
+                                            })
+                                            .finally(() => {
+                                                onClose();
+                                            })
+                                    }} ml={3}>
+                                        Delete
+                                    </Button>
+                                </AlertDialogFooter>
+                            </AlertDialogContent>
+                        </AlertDialogOverlay>
+                    </AlertDialog>
+                </Stack>
             </Box>
         </Center>
     );

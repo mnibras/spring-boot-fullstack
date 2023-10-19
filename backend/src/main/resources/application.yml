@@ -10,7 +10,7 @@ cors:
 spring:
     datasource:
         url: jdbc:postgresql://localhost:5432/customer
-        username: postgres
+        username: nibras
         password: 1234
     jpa:
         hibernate:
