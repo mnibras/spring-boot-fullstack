@@ -1,5 +1,8 @@
 package com.amigoscode.customer;
 
+import com.amigoscode.jwt.JWTUtility;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -9,9 +12,11 @@ import java.util.List;
 public class CustomerController {
 
     private final CustomerService customerService;
+    private final JWTUtility jwtUtility;
 
-    public CustomerController(CustomerService customerService) {
+    public CustomerController(CustomerService customerService, JWTUtility jwtUtility) {
         this.customerService = customerService;
+        this.jwtUtility = jwtUtility;
     }
 
     @GetMapping
@@ -25,8 +30,12 @@ public class CustomerController {
     }
 
     @PostMapping
-    public void registerCustomer(@RequestBody CustomerRegistrationRequest customerRegistrationRequest) {
+    public ResponseEntity<?> registerCustomer(@RequestBody CustomerRegistrationRequest customerRegistrationRequest) {
         customerService.addCustomer(customerRegistrationRequest);
+        String jwtToken = jwtUtility.issueToken(customerRegistrationRequest.email(), "ROLE_USER");
+        return ResponseEntity.ok()
+                .header(HttpHeaders.AUTHORIZATION, jwtToken)
+                .build();
     }
 
     @DeleteMapping("/{customerId}")
