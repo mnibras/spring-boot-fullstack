@@ -30,7 +30,7 @@ class CustomerRepositoryTest extends AbstractTestSetup {
     void existsCustomerByEmail() {
         // Given
         String email = FAKER.internet().safeEmailAddress() + "-" + UUID.randomUUID();
-        Customer customer = new Customer(FAKER.name().fullName(), email, 20,  Gender.MALE);
+        Customer customer = new Customer(FAKER.name().fullName(), email, "password", 20,  Gender.MALE);
 
         underTest.save(customer);
 
@@ -57,7 +57,7 @@ class CustomerRepositoryTest extends AbstractTestSetup {
     void existsCustomerById() {
         // Given
         String email = FAKER.internet().safeEmailAddress() + "-" + UUID.randomUUID();
-        Customer customer = new Customer(FAKER.name().fullName(), email, 20, Gender.MALE);
+        Customer customer = new Customer(FAKER.name().fullName(), email, "password", 20, Gender.MALE);
 
         underTest.save(customer);
 

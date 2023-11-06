@@ -32,7 +32,7 @@ public class Main {
             String email = String.format("%s.%s@amigoscode.com", firstName, lastName);
             int age = random.nextInt(16, 99);
             Gender gender = age % 2 == 0 ? Gender.MALE : Gender.FEMALE;
-            Customer customer = new Customer(name, email, age, gender);
+            Customer customer = new Customer(name, email, "password", age, gender);
             customerRepository.save(customer);
         };
     }

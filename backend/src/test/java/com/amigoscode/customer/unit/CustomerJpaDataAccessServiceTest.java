@@ -57,7 +57,7 @@ class CustomerJpaDataAccessServiceTest {
     void insertCustomer() {
         // Given
         Customer customer = new Customer(
-                1, "Ali", "ali@gmail.com", 2, Gender.MALE);
+                1, "Ali", "ali@gmail.com", "password", 2, Gender.MALE);
 
         // When
         underTest.insertCustomer(customer);
@@ -106,7 +106,7 @@ class CustomerJpaDataAccessServiceTest {
     void updateCustomer() {
         // Given
         Customer customer = new Customer(
-                1, "Ali", "ali@gmail.com", 2, Gender.MALE);
+                1, "Ali", "ali@gmail.com", "password", 2, Gender.MALE);
 
         // When
         underTest.updateCustomer(customer);

@@ -34,7 +34,7 @@ public class CustomerService {
         if (customerDao.existCustomerWithEmail(customerRegistrationRequest.email())) {
             throw new DuplicateResourceException("Email already taken");
         }
-        Customer customer = new Customer(customerRegistrationRequest.name(), customerRegistrationRequest.email(), customerRegistrationRequest.age(), customerRegistrationRequest.gender());
+        Customer customer = new Customer(customerRegistrationRequest.name(), customerRegistrationRequest.email(), "password", customerRegistrationRequest.age(), customerRegistrationRequest.gender());
         customerDao.insertCustomer(customer);
         logger.info("Customer {} created successfully", customerRegistrationRequest.name());
     }
